@@ -24,15 +24,13 @@ public class Station {
 	public ArrayList<Train> trains;
 	public static final float DEPARTURE_TIME = 2;
 	public PassengerRouter router;
-	public boolean isCargoStation;
 
-	public Station(float x, float y, PassengerRouter router, String name, boolean cargo){
+	public Station(float x, float y, PassengerRouter router, String name){
 		this.name = name;
 		this.router = router;
 		this.position = new Point2D.Float(x,y);
 		this.lines = new ArrayList<Line>();
 		this.trains = new ArrayList<Train>();
-		this.isCargoStation = cargo;
 	}
 	
 	public void registerLine(Line l){
@@ -51,8 +49,6 @@ public class Station {
 		// Calculate the percentage
 		float t = this.trains.size()/(float)PLATFORMS;
 		Color c = Color.WHITE.cpy().lerp(Color.DARK_GRAY, t);
-		if(isCargoStation)
-			c = Color.WHITE.cpy().lerp(Color.YELLOW, t);
 		renderer.setColor(c);
 		renderer.circle(this.position.x, this.position.y, radius, NUM_CIRCLE_STATMENTS);		
 	}
@@ -80,7 +76,6 @@ public class Station {
 
 	// Returns departure time in seconds
 	public float getDepartureTime() {
-
 		return DEPARTURE_TIME;
 	}
 

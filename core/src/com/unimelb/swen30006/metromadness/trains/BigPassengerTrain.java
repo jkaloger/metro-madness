@@ -6,13 +6,28 @@ import com.unimelb.swen30006.metromadness.passengers.Passenger;
 import com.unimelb.swen30006.metromadness.stations.Station;
 import com.unimelb.swen30006.metromadness.tracks.Line;
 
-public class BigPassengerTrain extends PassengerTrain {
+public class BigPassengerTrain extends Train {
 
 	public BigPassengerTrain(Line trainLine, Station start, boolean forward, String name) {
 		super(trainLine, start, forward, name);
-		maxPassengers = 80;
-		dotSize = 20.0f;
-		dotColor = Color.MAROON;
+	}
+	
+	@Override
+	public void embark(Passenger p) throws Exception {
+		if(this.passengers.size() > 80){
+			throw new Exception();
+		}
+		this.passengers.add(p);
+	}
+	
+	@Override
+	public void render(ShapeRenderer renderer){
+		if(!this.inStation()){
+			Color col = this.forward ? FORWARD_COLOUR : BACKWARD_COLOUR;
+			float percentage = this.passengers.size()/20f;
+			renderer.setColor(col.cpy().lerp(Color.LIGHT_GRAY, percentage));
+			renderer.circle(this.pos.x, this.pos.y, TRAIN_WIDTH*(1+percentage));
+		}
 	}
 
 }

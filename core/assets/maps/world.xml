@@ -3,7 +3,7 @@
 	<stations>
 
 		<station>
-			<type>Cargo</type>
+			<type>Active</type>
 			<name>Berlin</name>
 			<x_loc>2800</x_loc>
 			<y_loc>4800</y_loc>
@@ -11,7 +11,7 @@
 			<max_passengers> 100 </max_passengers>
 		</station>
 			<station>
-			<type>Cargo</type>
+			<type>Active</type>
 			<name>Paris</name>
 			<x_loc>2240</x_loc>
 			<y_loc>4800</y_loc>
@@ -19,7 +19,7 @@
 			<max_passengers> 100 </max_passengers>
 		</station>
 		<station>
-			<type>Cargo</type>
+			<type>Active</type>
 			<name>Amsterdam</name>
 			<x_loc>2800</x_loc>
 			<y_loc>5200</y_loc>
@@ -52,7 +52,7 @@
 		</station>
 
 		<station>
-			<type>Cargo</type>
+			<type>Active</type>
 			<name>Vienna</name>
 			<x_loc>3200</x_loc>
 			<y_loc>4600</y_loc>
@@ -60,7 +60,7 @@
 			<max_passengers> 100</max_passengers>
 		</station>
 		<station>
-			<type>Cargo</type>
+			<type>Active</type>
 			<name>Budapest</name>
 			<x_loc>3600</x_loc>
 			<y_loc>4200</y_loc>
@@ -192,7 +192,7 @@
 			<direction>forward</direction>
 		</train>
 		<train>
-			<type>SmallCargo</type>
+			<type>BigCargo</type>
 			<line>Northern</line>
 			<start>Glasgow</start>
 			<name>Thomas the Tank Engine</name>

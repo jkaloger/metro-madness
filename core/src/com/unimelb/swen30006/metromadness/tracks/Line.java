@@ -93,7 +93,7 @@ public class Line {
 		if(this.stations.contains(s)){
 			int curIndex = this.stations.lastIndexOf(s);
 			if(forward){ curIndex+=1;}else{ curIndex -=1;}
-
+			
 			// Check index is within range
 			if((curIndex < 0) || (curIndex > this.stations.size()-1)){
 				throw new Exception();
@@ -103,34 +103,6 @@ public class Line {
 		} else {
 			throw new Exception();
 		}
-	}
-
-	public Station nextCargoStation(Station s, boolean forward) throws Exception{
-		if(this.stations.contains(s)){
-			int curIndex = this.stations.lastIndexOf(s);
-			if (forward) {
-				curIndex += 1;
-			} else {
-				curIndex -= 1;
-			}
-			while(!this.stations.get(curIndex).isCargoStation) {
-				if (forward) {
-					curIndex += 1;
-				} else {
-					curIndex -= 1;
-				}
-				System.out.println(curIndex + ",");
-				// Check index is within range
-				if((curIndex < 0) || (curIndex > this.stations.size()-1)){
-					System.out.println("ERROR!");
-					throw new Exception();
-				}
-			}
-			return this.stations.get(curIndex);
-		} else {
-			throw new Exception();
-		}
-
 	}
 	
 	public void render(ShapeRenderer renderer){

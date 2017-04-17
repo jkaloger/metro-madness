@@ -19,7 +19,9 @@ import com.unimelb.swen30006.metromadness.routers.SimpleRouter;
 import com.unimelb.swen30006.metromadness.stations.ActiveStation;
 import com.unimelb.swen30006.metromadness.stations.Station;
 import com.unimelb.swen30006.metromadness.tracks.Line;
-import com.unimelb.swen30006.metromadness.trains.*;
+import com.unimelb.swen30006.metromadness.trains.BigPassengerTrain;
+import com.unimelb.swen30006.metromadness.trains.SmallPassengerTrain;
+import com.unimelb.swen30006.metromadness.trains.Train;
 
 public class MapReader {
 
@@ -41,8 +43,8 @@ public class MapReader {
 	public void process(){
 		try {
 			// Build the doc factory
-			//FileHandle file = Gdx.files.internal("../../core/assets/maps/melbourne.xml");
-			FileHandle file = Gdx.files.internal("../../core/assets/maps/world.xml");
+			FileHandle file = Gdx.files.internal("../core/assets/maps/melbourne.xml");			
+//			FileHandle file = Gdx.files.internal("../core/assets/maps/world.xml");
 			XmlReader reader = new XmlReader();
 			Element root = reader.parse(file);
 			
@@ -110,13 +112,9 @@ public class MapReader {
 			return new BigPassengerTrain(l,s,dir,name);
 		} else if (type.equals("SmallPassenger")){
 			return new SmallPassengerTrain(l,s,dir,name);
-		} else if (type.equals("SmallCargo")) {
-			return new SmallCargoTrain(l,s,dir,name);
-		} else if(type.equals("BigCargo")) {
-			return new BigCargoTrain(l,s,dir,name);
+		} else {
+			return new Train(l, s, dir,name);
 		}
-
-		return null;
 	}
 
 	private Station processStation(Element e){
@@ -130,11 +128,9 @@ public class MapReader {
 			int maxPax = e.getInt("max_passengers");
 			return new ActiveStation(x_loc, y_loc, r, name, maxPax);
 		} else if (type.equals("Passive")){
-			return new Station(x_loc, y_loc, r, name, false);
-		} else if(type.equals("Cargo")) {
-			return new Station(x_loc, y_loc, r, name, true);
-		}else{
-			return new Station(x_loc,y_loc,r,name, false);
+			return new Station(x_loc, y_loc, r, name);
+		} else{
+			return new Station(x_loc,y_loc,r,name);
 		}
 	}
 

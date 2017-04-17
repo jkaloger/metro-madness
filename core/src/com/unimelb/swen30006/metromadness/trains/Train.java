@@ -14,7 +14,7 @@ import com.unimelb.swen30006.metromadness.stations.Station;
 import com.unimelb.swen30006.metromadness.tracks.Line;
 import com.unimelb.swen30006.metromadness.tracks.Track;
 
-public abstract class Train {
+public class Train {
 	
 	// Logger
 	private static Logger logger = LogManager.getLogger();
@@ -54,10 +54,6 @@ public abstract class Train {
 	// State variables
 	public int numTrips;
 	public boolean disembarked;
-
-	public int maxPassengers;
-	public float dotSize;
-	public Color dotColor;
 	
 	
 	public State previousState = null;
@@ -112,7 +108,7 @@ public abstract class Train {
 			// and wait 10 seconds for incoming passengers
 			if(!this.disembarked){
 				this.disembark();
-				this.departureTimer = getDepartureTime();
+				this.departureTimer = this.station.getDepartureTime();
 				this.disembarked = true;
 			} else {
 				// Count down if departure timer. 
@@ -145,7 +141,7 @@ public abstract class Train {
 			if(this.track.canEnter(this.forward)){
 				try {
 					// Find the next
-					Station next = findNextStation();
+					Station next = this.trainLine.nextStation(this.station, this.forward);
 					// Depart our current station
 					this.station.depart(this);
 					this.station = next;
@@ -161,8 +157,9 @@ public abstract class Train {
 			if(hasChanged){
 				logger.info(this.name+ " enroute to "+this.station.name+" Station!");
 			}
-
-			if(checkStation()) {
+			
+			// Checkout if we have reached the new station
+			if(this.pos.distance(this.station.position) < 10 ){
 				this.state = State.WAITING_ENTRY;
 			} else {
 				move(delta);
@@ -236,22 +233,9 @@ public abstract class Train {
 	public void render(ShapeRenderer renderer){
 		if(!this.inStation()){
 			Color col = this.forward ? FORWARD_COLOUR : BACKWARD_COLOUR;
-			float percentage = this.passengers.size()/dotSize;
-			renderer.setColor(col.cpy().lerp(dotColor, percentage));
+			renderer.setColor(col);
 			renderer.circle(this.pos.x, this.pos.y, TRAIN_WIDTH);
 		}
-	}
-
-	public boolean checkStation() {
-		return this.pos.distance(this.station.position) < 10;
-	}
-
-	public Station findNextStation() throws Exception {
-		return this.trainLine.nextStation(this.station, this.forward);
-	}
-
-	public float getDepartureTime() {
-		return this.station.getDepartureTime();
 	}
 	
 }
