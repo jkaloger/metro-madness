@@ -11,7 +11,8 @@ public class CargoTrain extends Train {
     // maxmimum amount of cargo train can carry
     private int maxCargoWeight;
 
-    public CargoTrain(Line trainLine, Station start, boolean forward, String name, int maxCargoWeight) {
-        super(trainLine, start, forward, name, maxCargoWeight);
+    public CargoTrain(Line trainLine, Station start, boolean forward, String name, int maxPassengers, int maxCargoWeight) {
+        super(trainLine, start, forward, name, maxPassengers);
+        this.maxCargoWeight = maxCargoWeight;
     }
 }

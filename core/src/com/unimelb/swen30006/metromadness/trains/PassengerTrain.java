@@ -19,8 +19,7 @@ public class PassengerTrain extends Train {
         if(maxPassengers < 80) {
             this.dotColor = Color.MAROON;
             this.dotSize = 10.0f;
-        }
-        else {
+        } else {
             this.dotColor = Color.LIGHT_GRAY;
             this.dotSize = 20.0f;
         }

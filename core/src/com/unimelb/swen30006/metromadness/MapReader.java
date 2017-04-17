@@ -19,6 +19,7 @@ import com.unimelb.swen30006.metromadness.routers.SimpleRouter;
 import com.unimelb.swen30006.metromadness.stations.ActiveStation;
 import com.unimelb.swen30006.metromadness.stations.Station;
 import com.unimelb.swen30006.metromadness.tracks.Line;
+import com.unimelb.swen30006.metromadness.trains.CargoTrain;
 import com.unimelb.swen30006.metromadness.trains.PassengerTrain;
 import com.unimelb.swen30006.metromadness.trains.Train;
 
@@ -42,8 +43,8 @@ public class MapReader {
 	public void process(){
 		try {
 			// Build the doc factory
-			FileHandle file = Gdx.files.internal("../core/assets/maps/melbourne.xml");			
-//			FileHandle file = Gdx.files.internal("../core/assets/maps/world.xml");
+//			FileHandle file = Gdx.files.internal("../core/assets/maps/melbourne.xml");
+			FileHandle file = Gdx.files.internal("../core/assets/maps/world.xml");
 			XmlReader reader = new XmlReader();
 			Element root = reader.parse(file);
 			
@@ -94,7 +95,7 @@ public class MapReader {
 		return this.stations.values();
 	}
 
-	private Train processTrain(Element e){
+	private Train processTrain(Element e) throws Exception{
 		// Retrieve the values
 		String type = e.get("type");
 		String line = e.get("line");
@@ -111,8 +112,12 @@ public class MapReader {
 			return new PassengerTrain(l,s,dir,name, 80);
 		} else if (type.equals("SmallPassenger")){
 			return new PassengerTrain(l,s,dir,name, 10);
+		}  else if (type.equals("BigCargo")){
+			return new CargoTrain(l,s,dir,name, 80,1000);
+		}  else if (type.equals("SmallCargo")){
+			return new CargoTrain(l,s,dir,name, 10,200);
 		} else {
-			return new Train(l, s, dir,name, 0);
+			throw new Exception();
 		}
 	}
 
