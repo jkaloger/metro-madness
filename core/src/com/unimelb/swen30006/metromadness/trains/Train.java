@@ -20,7 +20,7 @@ public class Train {
 	private static Logger logger = LogManager.getLogger();
 	// The state that a train can be in 
 	public enum State {
-		IN_STATION, READY_DEPART, ON_ROUTE, WAITING_ENTRY, FROM_DEPOT
+		IN_STATION, READY_DEPART, ON_ROUTE, ARRIVING, WAITING_ENTRY, FROM_DEPOT
 	}
 
 	// Constants
@@ -244,5 +244,9 @@ public class Train {
 
 	public int getMaxPassengers() {
 		return maxPassengers;
+	}
+
+	public boolean shouldEnter(Station s) {
+		return true;
 	}
 }

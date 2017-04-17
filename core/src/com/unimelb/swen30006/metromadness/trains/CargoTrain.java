@@ -15,4 +15,13 @@ public class CargoTrain extends Train {
         super(trainLine, start, forward, name, maxPassengers);
         this.maxCargoWeight = maxCargoWeight;
     }
+
+    @Override
+    public boolean shouldEnter(Station s) {
+        if(s.isCargoStation) {
+            return true;
+        }
+
+        return false;
+    }
 }

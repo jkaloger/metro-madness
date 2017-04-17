@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.unimelb.swen30006.metromadness.passengers.Passenger;
 import com.unimelb.swen30006.metromadness.routers.PassengerRouter;
 import com.unimelb.swen30006.metromadness.tracks.Line;
+import com.unimelb.swen30006.metromadness.trains.CargoTrain;
 import com.unimelb.swen30006.metromadness.trains.Train;
 
 public class Station {
@@ -24,6 +25,8 @@ public class Station {
 	public ArrayList<Train> trains;
 	public static final float DEPARTURE_TIME = 2;
 	public PassengerRouter router;
+
+	public static boolean isCargoStation;
 
 	public Station(float x, float y, PassengerRouter router, String name){
 		this.name = name;
