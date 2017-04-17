@@ -19,8 +19,7 @@ import com.unimelb.swen30006.metromadness.routers.SimpleRouter;
 import com.unimelb.swen30006.metromadness.stations.ActiveStation;
 import com.unimelb.swen30006.metromadness.stations.Station;
 import com.unimelb.swen30006.metromadness.tracks.Line;
-import com.unimelb.swen30006.metromadness.trains.BigPassengerTrain;
-import com.unimelb.swen30006.metromadness.trains.SmallPassengerTrain;
+import com.unimelb.swen30006.metromadness.trains.PassengerTrain;
 import com.unimelb.swen30006.metromadness.trains.Train;
 
 public class MapReader {
@@ -109,11 +108,11 @@ public class MapReader {
 		
 		// Make the train
 		if(type.equals("BigPassenger")){
-			return new BigPassengerTrain(l,s,dir,name);
+			return new PassengerTrain(l,s,dir,name, 80);
 		} else if (type.equals("SmallPassenger")){
-			return new SmallPassengerTrain(l,s,dir,name);
+			return new PassengerTrain(l,s,dir,name, 10);
 		} else {
-			return new Train(l, s, dir,name);
+			return new Train(l, s, dir,name, 0);
 		}
 	}
 

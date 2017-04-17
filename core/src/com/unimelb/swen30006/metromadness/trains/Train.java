@@ -38,6 +38,9 @@ public class Train {
 	// The line that this is traveling on
 	public Line trainLine;
 
+	// the maximum number of passengers the train can carry
+	private int maxPassengers;
+
 	// Passenger Information
 	public ArrayList<Passenger> passengers;
 	public float departureTimer;
@@ -59,13 +62,14 @@ public class Train {
 	public State previousState = null;
 
 	
-	public Train(Line trainLine, Station start, boolean forward, String name){
+	public Train(Line trainLine, Station start, boolean forward, String name, int maxCapacity){
 		this.trainLine = trainLine;
 		this.station = start;
 		this.state = State.FROM_DEPOT;
 		this.forward = forward;
 		this.passengers = new ArrayList<Passenger>();
 		this.name = name;
+		this.maxCapacity = maxCapacity;
 	}
 
 	public void update(float delta){
@@ -237,5 +241,8 @@ public class Train {
 			renderer.circle(this.pos.x, this.pos.y, TRAIN_WIDTH);
 		}
 	}
-	
+
+	public int getMaxCapacity() {
+		return maxCapacity;
+	}
 }
