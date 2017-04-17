@@ -28,7 +28,7 @@ public class PassengerTrain extends Train {
 
     @Override
     public void embark(Passenger p) throws Exception {
-        if(this.passengers.size() > this.getMaxCapacity()){
+        if(this.passengers.size() > this.getMaxPassengers()){
             throw new Exception();
         }
         this.passengers.add(p);
