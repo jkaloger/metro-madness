@@ -62,14 +62,14 @@ public class Train {
 	public State previousState = null;
 
 	
-	public Train(Line trainLine, Station start, boolean forward, String name, int maxCapacity){
+	public Train(Line trainLine, Station start, boolean forward, String name, int maxPassengers){
 		this.trainLine = trainLine;
 		this.station = start;
 		this.state = State.FROM_DEPOT;
 		this.forward = forward;
 		this.passengers = new ArrayList<Passenger>();
 		this.name = name;
-		this.maxCapacity = maxCapacity;
+		this.maxPassengers = maxPassengers;
 	}
 
 	public void update(float delta){
@@ -242,7 +242,7 @@ public class Train {
 		}
 	}
 
-	public int getMaxCapacity() {
-		return maxCapacity;
+	public int getMaxPassengers() {
+		return maxPassengers;
 	}
 }
