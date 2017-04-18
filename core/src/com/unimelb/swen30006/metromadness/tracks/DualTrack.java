@@ -16,9 +16,10 @@ public class DualTrack extends Track {
 		this.forwardOccupied = false;
 		this.backwardOccupied = false;
 	}
-	
+
+	@Override
 	public void render(ShapeRenderer renderer){
-		renderer.rectLine(startPos.x, startPos.y, endPos.x, endPos.y, LINE_WIDTH);
+		super.render(renderer);
 		renderer.setColor(new Color(245f/255f,245f/255f,245f/255f,0.5f).lerp(this.trackColour, 0.5f));
 		renderer.rectLine(startPos.x, startPos.y, endPos.x, endPos.y, LINE_WIDTH/3);
 		renderer.setColor(this.trackColour);
