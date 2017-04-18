@@ -14,7 +14,7 @@ import com.unimelb.swen30006.metromadness.stations.Station;
 import com.unimelb.swen30006.metromadness.tracks.Line;
 import com.unimelb.swen30006.metromadness.tracks.Track;
 
-public class Train {
+public abstract class Train {
 	
 	// Logger
 	private static Logger logger = LogManager.getLogger();
