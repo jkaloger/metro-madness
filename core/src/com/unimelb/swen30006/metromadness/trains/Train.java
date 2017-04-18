@@ -30,6 +30,10 @@ public class Train {
 	public static final float TRAIN_WIDTH=4;
 	public static final float TRAIN_LENGTH = 6;
 	public static final float TRAIN_SPEED=50f;
+	public static final int BIG_PASSENGER_CAPACITY=80;
+	public static final int SMALL_PASSENGER_CAPACITY=10;
+	public static final int BIG_CARGO_CAPACITY=1000;
+	public static final int SMALL_CARGO_CAPACITY=200;
 	
 	// The train's name
 	
