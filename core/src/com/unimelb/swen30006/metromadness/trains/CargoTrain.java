@@ -1,5 +1,6 @@
 package com.unimelb.swen30006.metromadness.trains;
 
+import com.unimelb.swen30006.metromadness.passengers.Passenger;
 import com.unimelb.swen30006.metromadness.stations.Station;
 import com.unimelb.swen30006.metromadness.tracks.Line;
 
@@ -22,6 +23,16 @@ public class CargoTrain extends Train {
             return true;
         }
 
+        return false;
+    }
+
+    @Override
+    public void embark(Passenger p) {
+
+    }
+
+    @Override
+    public boolean hasSpaceFree() {
         return false;
     }
 }

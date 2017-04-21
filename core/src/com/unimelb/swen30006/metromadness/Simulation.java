@@ -11,7 +11,7 @@ import com.unimelb.swen30006.metromadness.trains.Train;
 public class Simulation {
 	
 	public ArrayList<Station> stations;
-	public ArrayList<Line> lines;
+	private ArrayList<Line> lines;
 	public ArrayList<Train> trains;
 	
 	public Simulation(String fileName){

@@ -56,11 +56,12 @@ public class Station {
 		renderer.circle(this.position.x, this.position.y, radius, NUM_CIRCLE_STATMENTS);		
 	}
 	
-	public void enter(Train t) throws Exception {
+	public boolean enter(Train t) {
 		if(trains.size() >= PLATFORMS){
-			throw new Exception();
+			return false;
 		} else {
 			this.trains.add(t);
+			return true;
 		}
 	}
 	
@@ -73,7 +74,7 @@ public class Station {
 		}
 	}
 	
-	public boolean canEnter(Line l) throws Exception {
+	public boolean canEnter(Line l) {
 		return trains.size() < PLATFORMS;
 	}
 

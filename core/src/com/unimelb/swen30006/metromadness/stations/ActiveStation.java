@@ -30,9 +30,9 @@ public class ActiveStation extends Station {
 	}
 	
 	@Override
-	public void enter(Train t) throws Exception {
+	public boolean enter(Train t) {
 		if(trains.size() >= PLATFORMS){
-			throw new Exception();
+			return false;
 		} else {
 			// Add the train
 			this.trains.add(t);
@@ -40,11 +40,11 @@ public class ActiveStation extends Station {
 			Iterator<Passenger> pIter = this.waiting.iterator();
 			while(pIter.hasNext()){
 				Passenger p = pIter.next();
-				try {
+				if(t.hasSpaceFree()) {
 					logger.info("Passenger "+p.id+" carrying "+p.getCargo().getWeight() +" kg cargo embarking at "+this.name+" heading to "+p.destination.name);
 					t.embark(p);
 					pIter.remove();
-				} catch (Exception e){
+				} else {
 					// Do nothing, already waiting
 					break;
 				}
@@ -52,7 +52,7 @@ public class ActiveStation extends Station {
 			
 			//Do not add new passengers if there are too many already
 			if (this.waiting.size() > maxVolume){
-				return;
+				return false;
 			}
 			// Add the new passenger
 			Passenger[] ps = this.g.generatePassengers();
@@ -65,6 +65,8 @@ public class ActiveStation extends Station {
 				}
 			}
 		}
+
+		return true;
 	}
 	
 	public void render(ShapeRenderer renderer){

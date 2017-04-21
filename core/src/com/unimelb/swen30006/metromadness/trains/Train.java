@@ -20,7 +20,7 @@ public abstract class Train {
 	private static Logger logger = LogManager.getLogger();
 	// The state that a train can be in 
 	public enum State {
-		IN_STATION, READY_DEPART, ON_ROUTE, ARRIVING, WAITING_ENTRY, FROM_DEPOT
+		IN_STATION, READY_DEPART, ON_ROUTE, WAITING_ENTRY, FROM_DEPOT
 	}
 
 	// Constants
@@ -40,30 +40,30 @@ public abstract class Train {
 	public String name;
 
 	// The line that this is traveling on
-	public Line trainLine;
+	private Line trainLine;
 
 	// the maximum number of passengers the train can carry
 	private int maxPassengers;
 
 	// Passenger Information
-	public ArrayList<Passenger> passengers;
-	public float departureTimer;
+	private ArrayList<Passenger> passengers;
+	private float departureTimer;
 	
 	// Station and track and position information
 	public Station station; 
-	public Track track;
-	public Point2D.Float pos;
+	private Track track;
+	private Point2D.Float pos;
 
 	// Direction and direction
 	public boolean forward;
-	public State state;
+	private State state;
 
 	// State variables
-	public int numTrips;
-	public boolean disembarked;
-	
-	
-	public State previousState = null;
+	private int numTrips;
+	private boolean disembarked;
+
+
+	private State previousState = null;
 
 	
 	public Train(Line trainLine, Station start, boolean forward, String name, int maxPassengers){
@@ -96,17 +96,13 @@ public abstract class Train {
 			
 			// We have our station initialized we just need to retrieve the next track, enter the
 			// current station officially and mark as in station
-			try {
-				if(this.station.canEnter(this.trainLine)){
-					
-					this.station.enter(this);
-					this.pos = (Point2D.Float) this.station.position.clone();
-					this.state = State.IN_STATION;
-					this.disembarked = false;
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
+			if(this.station.canEnter(this.trainLine)){
+				this.station.enter(this);
+				this.pos = (Point2D.Float) this.station.position.clone();
+				this.state = State.IN_STATION;
+				this.disembarked = false;
 			}
+			break;
 		case IN_STATION:
 			if(hasChanged){
 				logger.info(this.name+" is in "+this.station.name+" Station.");
@@ -205,9 +201,8 @@ public abstract class Train {
 		this.pos.setLocation(newX, newY);
 	}
 
-	public void embark(Passenger p) throws Exception {
-		throw new Exception();
-	}
+	public abstract void embark(Passenger p);
+	public abstract boolean hasSpaceFree();
 
 
 	public ArrayList<Passenger> disembark(){
@@ -252,5 +247,30 @@ public abstract class Train {
 
 	public boolean shouldEnter(Station s) {
 		return true;
+	}
+
+	public void addTrip()
+	{
+		this.numTrips++;
+	}
+
+	public ArrayList<Passenger> getPassengers() {
+		return passengers;
+	}
+
+	public float getX() {
+		return this.pos.x;
+	}
+
+	public float getY(){
+		return this.pos.y;
+	}
+
+	public int getNumPassengers() {
+		return this.passengers.size();
+	}
+
+	public void addPassenger(Passenger p) {
+		passengers.add(p);
 	}
 }

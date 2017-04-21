@@ -26,21 +26,26 @@ public class PassengerTrain extends Train {
     }
 
     @Override
-    public void embark(Passenger p) throws Exception {
-        if(this.passengers.size() > this.getMaxPassengers()){
-            throw new Exception();
+    public void embark(Passenger p) {
+        this.addPassenger(p);
+    }
+
+    public boolean hasSpaceFree() {
+        if(this.getNumPassengers() > this.getMaxPassengers()){
+            return false;
+        } else {
+            return true;
         }
-        this.passengers.add(p);
     }
 
     @Override
     public void render(ShapeRenderer renderer){
         if(!this.inStation()){
             Color col = this.forward ? FORWARD_COLOUR : BACKWARD_COLOUR;
-            float percentage = this.passengers.size()/dotSize;
+            float percentage = this.getNumPassengers()/dotSize;
             renderer.setColor(col.cpy().lerp(dotColor, percentage));
             // We also get slightly bigger with passengers
-            renderer.circle(this.pos.x, this.pos.y, TRAIN_WIDTH*(1+percentage));
+            renderer.circle(this.getX(), this.getY(), TRAIN_WIDTH*(1+percentage));
         }
     }
 }
