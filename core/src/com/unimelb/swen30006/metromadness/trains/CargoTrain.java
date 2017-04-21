@@ -5,7 +5,7 @@ import com.unimelb.swen30006.metromadness.stations.Station;
 import com.unimelb.swen30006.metromadness.tracks.Line;
 
 /**
- * Created by jk on 17/4/17.
+ * Created by Jack Kaloger on 17/4/17.
  */
 public class CargoTrain extends Train {
 

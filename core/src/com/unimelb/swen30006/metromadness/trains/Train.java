@@ -129,7 +129,7 @@ public abstract class Train {
 						this.state = State.READY_DEPART;
 						break;
 					} catch (Exception e){
-						// Massive error.
+						// Massive error. Station not in Line (WILL THIS EVER HAPPEN???)
 						return;
 					}
 				}
@@ -176,16 +176,12 @@ public abstract class Train {
 			
 			// Waiting to enter, we need to check the station has room and if so
 			// then we need to enter, otherwise we just wait
-			try {
-				if(this.station.canEnter(this.trainLine)){
-					this.track.leave(this);
-					this.pos = (Point2D.Float) this.station.position.clone();
-					this.station.enter(this);
-					this.state = State.IN_STATION;
-					this.disembarked = false;
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
+			if(this.station.canEnter(this.trainLine)){
+				this.track.leave(this);
+				this.pos = (Point2D.Float) this.station.position.clone();
+				this.station.enter(this);
+				this.state = State.IN_STATION;
+				this.disembarked = false;
 			}
 			break;
 		}

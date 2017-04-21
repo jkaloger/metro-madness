@@ -57,10 +57,10 @@ public class ActiveStation extends Station {
 			// Add the new passenger
 			Passenger[] ps = this.g.generatePassengers();
 			for(Passenger p: ps){
-				try {
+				if(t.hasSpaceFree()) {
 					logger.info("Passenger "+p.id+" carrying "+p.getCargo().getWeight() +" kg embarking at "+this.name+" heading to "+p.destination.name);
 					t.embark(p);
-				} catch(Exception e){
+				} else {
 					this.waiting.add(p);
 				}
 			}
