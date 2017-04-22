@@ -16,6 +16,7 @@ public class PassengerTrain extends Train {
 
     public PassengerTrain(Line trainLine, Station start, boolean forward, String name, int maxPassengers) {
         super(trainLine, start, forward, name, maxPassengers);
+        /* this needs to be fixed */
         if(maxPassengers < 80) {
             this.dotColor = Color.MAROON;
             this.dotSize = 10.0f;
@@ -31,17 +32,13 @@ public class PassengerTrain extends Train {
     }
 
     public boolean hasSpaceFree() {
-        if(this.getNumPassengers() > this.getMaxPassengers()){
-            return false;
-        } else {
-            return true;
-        }
+        return this.getNumPassengers() > this.getMaxPassengers();
     }
 
     @Override
     public void render(ShapeRenderer renderer){
         if(!this.inStation()){
-            Color col = this.forward ? FORWARD_COLOUR : BACKWARD_COLOUR;
+            Color col = this.isForward() ? FORWARD_COLOUR : BACKWARD_COLOUR;
             float percentage = this.getNumPassengers()/dotSize;
             renderer.setColor(col.cpy().lerp(dotColor, percentage));
             // We also get slightly bigger with passengers

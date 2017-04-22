@@ -37,17 +37,18 @@ public class PassengerGenerator {
 		}
 		return passengers;
 	}
-	
+
+	/* A LOT OF THE FUNCTIONALITY HERE LOOKS LIKE IT BELONGS IN STATION */
 	public Passenger generatePassenger(Random random){
 		// Pick a random station from the line
 		Line l = this.lines.get(random.nextInt(this.lines.size()));
-		int current_station = l.stations.indexOf(this.s);
+		int current_station = l.getStations().indexOf(this.s);
 		boolean forward = random.nextBoolean();
 		
 		// If we are the end of the line then set our direction forward or backward
 		if(current_station == 0){
 			forward = true;
-		} else if (current_station == l.stations.size()-1){
+		} else if (current_station == l.getNumStations()-1){
 			forward = false;
 		}
 		
@@ -55,11 +56,11 @@ public class PassengerGenerator {
 		int index = 0;
 		
 		if (forward){
-			index = random.nextInt(l.stations.size()-1-current_station) + current_station + 1;
+			index = random.nextInt(l.getNumStations()-1-current_station) + current_station + 1;
 		} else {
 			index = current_station - 1 - random.nextInt(current_station);
 		}
-		Station s = l.stations.get(index);
+		Station s = l.getStation(index);
 		
 		return this.s.generatePassenger(idGen++, random, s);
 	}

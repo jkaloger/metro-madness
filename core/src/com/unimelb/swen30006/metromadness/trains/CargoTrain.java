@@ -19,11 +19,7 @@ public class CargoTrain extends Train {
 
     @Override
     public boolean shouldEnter(Station s) {
-        if(s.isCargoStation) {
-            return true;
-        }
-
-        return false;
+        return s.isCargoStation;
     }
 
     @Override

@@ -61,7 +61,7 @@ public class MapReader {
 			Array<Element> lineList = lines.getChildrenByName("line");
 			for(Element e : lineList){
 				Line l = processLine(e);
-				this.lines.put(l.name, l);
+				this.lines.put(l.getName(), l);
 			}
 
 			// Process Trains

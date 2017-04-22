@@ -37,7 +37,7 @@ public abstract class Train {
 	
 	// The train's name
 	
-	public String name;
+	private String name;
 
 	// The line that this is traveling on
 	private Line trainLine;
@@ -50,12 +50,12 @@ public abstract class Train {
 	private float departureTimer;
 	
 	// Station and track and position information
-	public Station station; 
+	private Station station;
 	private Track track;
 	private Point2D.Float pos;
 
 	// Direction and direction
-	public boolean forward;
+	private boolean forward;
 	private State state;
 
 	// State variables
@@ -217,7 +217,7 @@ public abstract class Train {
 
 	@Override
 	public String toString() {
-		return "Train [line=" + this.trainLine.name +", departureTimer=" + departureTimer + ", pos=" + pos + ", forward=" + forward + ", state=" + state
+		return "Train [line=" + this.trainLine.getName() +", departureTimer=" + departureTimer + ", pos=" + pos + ", forward=" + forward + ", state=" + state
 				+ ", numTrips=" + numTrips + ", disembarked=" + disembarked + "]";
 	}
 
@@ -268,5 +268,17 @@ public abstract class Train {
 
 	public void addPassenger(Passenger p) {
 		passengers.add(p);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Station getStation() {
+		return station;
+	}
+
+	public boolean isForward() {
+		return forward;
 	}
 }

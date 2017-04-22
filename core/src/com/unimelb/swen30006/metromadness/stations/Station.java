@@ -26,7 +26,7 @@ public class Station {
 	public static final float DEPARTURE_TIME = 2;
 	public PassengerRouter router;
 
-	public static boolean isCargoStation;
+	public boolean isCargoStation;
 
 	public Station(float x, float y, PassengerRouter router, String name){
 		this.name = name;
@@ -44,7 +44,7 @@ public class Station {
 		float radius = RADIUS;
 		for(int i=0; (i<this.lines.size() && i<MAX_LINES); i++){
 			Line l = this.lines.get(i);
-			renderer.setColor(l.lineColour);
+			renderer.setColor(l.getLineColour());
 			renderer.circle(this.position.x, this.position.y, radius, NUM_CIRCLE_STATMENTS);
 			radius = radius - 1;
 		}
