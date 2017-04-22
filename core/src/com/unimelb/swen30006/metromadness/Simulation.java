@@ -10,9 +10,9 @@ import com.unimelb.swen30006.metromadness.trains.Train;
 
 public class Simulation {
 	
-	public ArrayList<Station> stations;
+	private ArrayList<Station> stations;
 	private ArrayList<Line> lines;
-	public ArrayList<Train> trains;
+	private ArrayList<Train> trains;
 	
 	public Simulation(String fileName){
 		// Create a map reader and read in the file
