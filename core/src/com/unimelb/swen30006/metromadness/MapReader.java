@@ -117,11 +117,11 @@ public class MapReader {
 		}  else if (type.equals("SmallCargo")){
 			return new CargoTrain(l,s,dir,name, Train.SMALL_PASSENGER_CAPACITY,Train.SMALL_CARGO_CAPACITY);
 		} else {
-			throw new Exception();
+			throw new Exception("Invalid train type " + type + " specified in XML");
 		}
 	}
 
-	private Station processStation(Element e){
+	private Station processStation(Element e) throws Exception	 {
 		String type = e.get("type");
 		String name = e.get("name");
 		int x_loc = e.getInt("x_loc")/8;
@@ -134,7 +134,7 @@ public class MapReader {
 		} else if (type.equals("Passive")){
 			return new Station(x_loc, y_loc, r, name);
 		} else{
-			return new Station(x_loc,y_loc,r,name);
+			throw new Exception("Invalid station type " + type + " specified in XML");
 		}
 	}
 
