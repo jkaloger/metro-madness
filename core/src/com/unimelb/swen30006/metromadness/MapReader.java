@@ -43,8 +43,8 @@ public class MapReader {
 	public void process(){
 		try {
 			// Build the doc factory
-			FileHandle file = Gdx.files.internal("../core/assets/maps/melbourne.xml");
-//			FileHandle file = Gdx.files.internal("../core/assets/maps/world.xml");
+//			FileHandle file = Gdx.files.internal("../core/assets/maps/melbourne.xml");
+			FileHandle file = Gdx.files.internal("../core/assets/maps/world.xml");
 			XmlReader reader = new XmlReader();
 			Element root = reader.parse(file);
 
@@ -53,7 +53,7 @@ public class MapReader {
 			Array<Element> stationList = stations.getChildrenByName("station");
 			for(Element e : stationList){
 				Station s = processStation(e);
-				this.stations.put(s.name, s);
+				this.stations.put(s.getName(), s);
 			}
 
 			// Process Lines

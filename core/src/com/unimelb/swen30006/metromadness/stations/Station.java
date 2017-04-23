@@ -16,17 +16,15 @@ public class Station {
 	
 	public static final int PLATFORMS=2;
 	
-	public Point2D.Float position;
+	private Point2D.Float position;
 	public static final float RADIUS=6;
 	public static final int NUM_CIRCLE_STATMENTS=100;
 	public static final int MAX_LINES=3;
-	public String name;
-	public ArrayList<Line> lines;
-	public ArrayList<Train> trains;
+	private String name;
+	private ArrayList<Line> lines;
+	private ArrayList<Train> trains;
 	public static final float DEPARTURE_TIME = 2;
-	public PassengerRouter router;
-
-	public boolean isCargoStation;
+	private PassengerRouter router;
 
 	public Station(float x, float y, PassengerRouter router, String name){
 		this.name = name;
@@ -96,6 +94,24 @@ public class Station {
 	public Passenger generatePassenger(int id, Random random, Station s) {
 		return new Passenger(id, random, this, s);
 	}
-	
-	
+
+	public Point2D.Float getPosition() {
+		return position;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public ArrayList<Line> getLines() {
+		return lines;
+	}
+
+	public ArrayList<Train> getTrains() {
+		return trains;
+	}
+
+	public PassengerRouter getRouter() {
+		return router;
+	}
 }
