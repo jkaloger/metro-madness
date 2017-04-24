@@ -51,13 +51,13 @@ public abstract class Train {
 	
 	// Station and track and position information
 	protected Station station;
-	private Track track;
+	protected Track track;
 	private Point2D.Float pos;
 	private Station targetStation;
 
 	// Direction and direction
 	protected boolean forward;
-	private State state;
+	protected State state;
 
 	// State variables
 	private int numTrips;
@@ -164,8 +164,8 @@ public abstract class Train {
 
 	public void seekTrack() {
 	    this.checkDirection();
-		this.track = this.trainLine.nextTrack(this.station, this.forward);
-		this.state = State.READY_DEPART;
+        this.track = this.trainLine.nextTrack(this.station, this.forward);
+        this.state = State.READY_DEPART;
 	}
 
 	private void departStation() {
