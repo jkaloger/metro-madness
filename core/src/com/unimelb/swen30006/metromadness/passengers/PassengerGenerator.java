@@ -22,11 +22,14 @@ public class PassengerGenerator {
 	
 	// The max volume
 	public float maxVolume;
+
+	private boolean generateCargo;
 	
-	public PassengerGenerator(Station s, ArrayList<Line> lines, float max){
+	public PassengerGenerator(Station s, ArrayList<Line> lines, float max, boolean generateCargo){
 		this.s = s;
 		this.lines = lines;
 		this.maxVolume = max;
+		this.generateCargo = generateCargo;
 	}
 	
 	public Passenger[] generatePassengers(){
@@ -38,8 +41,7 @@ public class PassengerGenerator {
 		return passengers;
 	}
 
-	/* A LOT OF THE FUNCTIONALITY HERE LOOKS LIKE IT BELONGS IN STATION */
-	public Passenger generatePassenger(Random random){
+	private Passenger generatePassenger(Random random){
 		// Pick a random station from the line
 		Line l = this.lines.get(random.nextInt(this.lines.size()));
 		int current_station = l.getStations().indexOf(this.s);
@@ -62,8 +64,17 @@ public class PassengerGenerator {
 			index = current_station - 1 - random.nextInt(current_station);
 		}
 		Station s = l.getStation(index);
-		
-		return this.s.generatePassenger(idGen++, random, s);
+
+        return new Passenger(idGen++, random, this.s, s, generateCargo(random));
 	}
+
+	private Cargo generateCargo(Random random) {
+		if(!generateCargo)
+			return new Cargo(0);
+		return new Cargo(random.nextInt(51));
+	}
+
+
+
 	
 }

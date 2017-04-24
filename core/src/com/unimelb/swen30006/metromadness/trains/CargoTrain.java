@@ -32,4 +32,31 @@ public class CargoTrain extends Train {
         return this.maxCargoWeight - this.getTotalCargo() > p.getCargo().getWeight()
                 && b;
     }
+
+    @Override
+    public void seekTrack() {
+
+
+        super.seekTrack();
+    }
+
+    @Override
+    public void checkDirection() {
+        // We are ready to depart, find the next track and wait until we can enter
+        boolean endOfLine = this.trainLine.endOfLine(this.station);
+        if(endOfLine){
+            this.forward = !this.forward;
+        } else if(this.findNextCargoStation()) {
+            this.forward = !this.forward;
+        }
+    }
+
+    public boolean findNextCargoStation() {
+        /* find next cargo station:
+            return true if ahead
+            return false if behind
+         */
+
+        return true;
+    }
 }

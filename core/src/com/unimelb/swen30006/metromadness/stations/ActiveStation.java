@@ -26,7 +26,7 @@ public class ActiveStation extends Station {
 	public ActiveStation(float x, float y, PassengerRouter router, String name, float maxPax) {
 		super(x, y, router, name);
 		this.waiting = new ArrayList<Passenger>();
-		this.g = new PassengerGenerator(this, this.getLines(), maxPax);
+		this.g = this.createPassengerGenerator(maxPax);
 		this.maxVolume = maxPax;
 	}
 	
@@ -56,7 +56,7 @@ public class ActiveStation extends Station {
 				return false;
 			}
 			// Add the new passenger
-			Passenger[] ps = this.g.generatePassengers();
+			Passenger[] ps = this.generatePassengers();
 			for(Passenger p: ps){
 				if(t.hasSpaceFree(p)) {
 					logger.info("Passenger "+p.id+" carrying "+p.getCargo().getWeight() +" kg embarking at "+this.getName()+" heading to "+p.getDestination().getName());
@@ -91,7 +91,20 @@ public class ActiveStation extends Station {
 	}
 
 	@Override
+	protected Passenger[] generatePassengers() {
+		return this.g.generatePassengers();
+	}
+
+	protected PassengerGenerator getPassengerGenerator() {
+		return g;
+	}
+
+	@Override
 	public boolean shouldStop(Train t) {
 		return t.getClass() == PassengerTrain.class;
+	}
+
+	protected PassengerGenerator createPassengerGenerator(float maxPax) {
+		return new PassengerGenerator(this, this.getLines(), maxPax, false);
 	}
 }

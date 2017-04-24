@@ -14,13 +14,14 @@ public class Passenger {
 	private boolean reachedDestination;
 	private Cargo cargo;
 	
-	public Passenger(int id, Random random, Station start, Station end){
+	public Passenger(int id, Random random, Station start, Station end, Cargo cargo){
 		this.id = id;
 		this.beginning = start;
 		this.destination = end;
 		this.reachedDestination = false;
 		this.travelTime = 0;
-		this.cargo = generateCargo(random);
+		/* replaced Passenger.generateCargo() with PassengerGenerator.generateCargo() */
+		this.cargo = cargo;
 	}
 	
 	public void update(float time){
@@ -31,25 +32,8 @@ public class Passenger {
 	public Cargo getCargo(){
 		return cargo;
 	}
-	public Cargo generateCargo(Random random){
-		return new Cargo(random.nextInt(51));
-	}
 	
-	public class Cargo{
-		private int weight;
-		
-		public Cargo(int weight){
-			this.setWeight(weight);
-		}
 
-		public int getWeight() {
-			return weight;
-		}
-
-		public void setWeight(int weight) {
-			this.weight = weight;
-		}
-	}
 
 	public Station getDestination() {
 		return destination;

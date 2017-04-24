@@ -6,6 +6,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.unimelb.swen30006.metromadness.passengers.Cargo;
 import com.unimelb.swen30006.metromadness.passengers.Passenger;
 import com.unimelb.swen30006.metromadness.routers.PassengerRouter;
 import com.unimelb.swen30006.metromadness.tracks.Line;
@@ -95,9 +96,8 @@ public class Station {
 				+ ", router=" + router + "]";
 	}
 
-	/* WHAT IS THIS DOING HERE??? */
-	public Passenger generatePassenger(int id, Random random, Station s) {
-		return new Passenger(id, random, this, s);
+	protected Passenger[] generatePassengers() {
+		return null;
 	}
 
 	public Point2D.Float getPosition() {

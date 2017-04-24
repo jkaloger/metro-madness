@@ -40,7 +40,7 @@ public abstract class Train {
 	private String name;
 
 	// The line that this is traveling on
-	private Line trainLine;
+	protected Line trainLine;
 
 	// the maximum number of passengers the train can carry
 	private int maxPassengers;
@@ -50,13 +50,13 @@ public abstract class Train {
 	private float departureTimer;
 	
 	// Station and track and position information
-	private Station station;
+	protected Station station;
 	private Track track;
 	private Point2D.Float pos;
 	private Station targetStation;
 
 	// Direction and direction
-	private boolean forward;
+	protected boolean forward;
 	private State state;
 
 	// State variables
@@ -142,6 +142,7 @@ public abstract class Train {
 
 	private void waitAtStation(float delta) {
 		if(!station.shouldStop(this)) {
+			this.seekTrack();
 			this.departStation();
 			return;
 		}
@@ -156,15 +157,15 @@ public abstract class Train {
 			if(this.departureTimer>0){
 				this.departureTimer -= delta;
 			} else {
-				// We are ready to depart, find the next track and wait until we can enter
-				boolean endOfLine = this.trainLine.endOfLine(this.station);
-				if(endOfLine){
-					this.forward = !this.forward;
-				}
-				this.track = this.trainLine.nextTrack(this.station, this.forward);
-				this.state = State.READY_DEPART;
+				this.seekTrack();
 			}
 		}
+	}
+
+	public void seekTrack() {
+	    this.checkDirection();
+		this.track = this.trainLine.nextTrack(this.station, this.forward);
+		this.state = State.READY_DEPART;
 	}
 
 	private void departStation() {
@@ -307,4 +308,12 @@ public abstract class Train {
 		}
 		return total;
 	}
+
+	public void checkDirection() {
+        // We are ready to depart, find the next track and wait until we can enter
+        boolean endOfLine = this.trainLine.endOfLine(this.station);
+        if(endOfLine){
+            this.forward = !this.forward;
+        }
+    }
 }
