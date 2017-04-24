@@ -54,7 +54,8 @@ public class PassengerGenerator {
 		
 		// Find the station
 		int index = 0;
-		
+
+		/* picks random station, but we need it to pick a cargo station if have cargo */
 		if (forward){
 			index = random.nextInt(l.getNumStations()-1-current_station) + current_station + 1;
 		} else {

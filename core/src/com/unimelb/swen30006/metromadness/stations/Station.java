@@ -71,6 +71,10 @@ public class Station {
 			throw new Exception();
 		}
 	}
+
+	public boolean shouldStop(Train t) {
+		return false;
+	}
 	
 	public boolean canEnter(Line l) {
 		return trains.size() < PLATFORMS;
@@ -91,6 +95,7 @@ public class Station {
 				+ ", router=" + router + "]";
 	}
 
+	/* WHAT IS THIS DOING HERE??? */
 	public Passenger generatePassenger(int id, Random random, Station s) {
 		return new Passenger(id, random, this, s);
 	}

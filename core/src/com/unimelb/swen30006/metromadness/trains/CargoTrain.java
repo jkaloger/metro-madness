@@ -27,8 +27,9 @@ public class CargoTrain extends Train {
 
     }
 
-    @Override
-    public boolean hasSpaceFree() {
-        return false;
+    public boolean hasSpaceFree(Passenger p) {
+        boolean b = this.getNumPassengers() < this.getMaxPassengers();
+        return this.maxCargoWeight - this.getTotalCargo() > p.getCargo().getWeight()
+                && b;
     }
 }

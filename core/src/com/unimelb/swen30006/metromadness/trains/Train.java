@@ -53,6 +53,7 @@ public abstract class Train {
 	private Station station;
 	private Track track;
 	private Point2D.Float pos;
+	private Station targetStation;
 
 	// Direction and direction
 	private boolean forward;
@@ -97,11 +98,10 @@ public abstract class Train {
 			this.departDepot();
 			break;
 		case IN_STATION:
+			this.waitAtStation(delta);
 			if(hasChanged){
 				logger.info(this.name+" is in "+this.station.getName()+" Station.");
 			}
-			
-			this.waitAtStation(delta);
 			break;
 		case READY_DEPART:
 			if(hasChanged){
@@ -141,6 +141,10 @@ public abstract class Train {
 	}
 
 	private void waitAtStation(float delta) {
+		if(!station.shouldStop(this)) {
+			this.departStation();
+			return;
+		}
 		// When in station we want to disembark passengers
 		// and wait 10 seconds for incoming passengers
 		if(!this.disembarked){
@@ -212,7 +216,7 @@ public abstract class Train {
 	}
 
 	public abstract void embark(Passenger p);
-	public abstract boolean hasSpaceFree();
+	public abstract boolean hasSpaceFree(Passenger p);
 
 
 	public ArrayList<Passenger> disembark(){
@@ -294,5 +298,13 @@ public abstract class Train {
 
 	public boolean isForward() {
 		return forward;
+	}
+
+	public int getTotalCargo() {
+		int total = 0;
+		for (Passenger p : passengers) {
+			total += p.getCargo().getWeight();
+		}
+		return total;
 	}
 }

@@ -3,6 +3,7 @@ package com.unimelb.swen30006.metromadness.stations;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.unimelb.swen30006.metromadness.trains.PassengerTrain;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,7 +41,7 @@ public class ActiveStation extends Station {
 			Iterator<Passenger> pIter = this.waiting.iterator();
 			while(pIter.hasNext()){
 				Passenger p = pIter.next();
-				if(t.hasSpaceFree()) {
+				if(t.hasSpaceFree(p)) {
 					logger.info("Passenger "+p.id+" carrying "+p.getCargo().getWeight() +" kg cargo embarking at "+this.getName()+" heading to "+p.getDestination().getName());
 					t.embark(p);
 					pIter.remove();
@@ -57,7 +58,7 @@ public class ActiveStation extends Station {
 			// Add the new passenger
 			Passenger[] ps = this.g.generatePassengers();
 			for(Passenger p: ps){
-				if(t.hasSpaceFree()) {
+				if(t.hasSpaceFree(p)) {
 					logger.info("Passenger "+p.id+" carrying "+p.getCargo().getWeight() +" kg embarking at "+this.getName()+" heading to "+p.getDestination().getName());
 					t.embark(p);
 				} else {
@@ -89,4 +90,8 @@ public class ActiveStation extends Station {
 		renderer.circle(this.getPosition().x, this.getPosition().y, radius, NUM_CIRCLE_STATMENTS);
 	}
 
+	@Override
+	public boolean shouldStop(Train t) {
+		return t.getClass() == PassengerTrain.class;
+	}
 }

@@ -27,12 +27,13 @@ public class PassengerTrain extends Train {
     }
 
     @Override
-    public void embark(Passenger p) {
-        this.addPassenger(p);
+    public boolean hasSpaceFree(Passenger p) {
+        return this.getNumPassengers() < this.getMaxPassengers();
     }
 
-    public boolean hasSpaceFree() {
-        return this.getNumPassengers() > this.getMaxPassengers();
+    @Override
+    public void embark(Passenger p) {
+        this.addPassenger(p);
     }
 
     @Override
