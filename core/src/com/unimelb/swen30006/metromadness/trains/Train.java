@@ -98,7 +98,7 @@ public abstract class Train {
 			this.departDepot();
 			break;
 		case IN_STATION:
-			this.waitAtStation(delta);
+			this.waitAtStation(delta, hasChanged);
 			if(hasChanged){
 				logger.info(this.name+" is in "+this.station.getName()+" Station.");
 			}
@@ -140,8 +140,8 @@ public abstract class Train {
 		}
 	}
 
-	private void waitAtStation(float delta) {
-		if(!station.shouldStop(this)) {
+	private void waitAtStation(float delta, boolean hasChanged) {
+		if(hasChanged && !station.shouldStop(this)) {
 			this.seekTrack();
 			this.departStation();
 			return;
