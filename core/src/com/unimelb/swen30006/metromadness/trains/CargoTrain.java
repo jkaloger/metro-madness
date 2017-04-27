@@ -28,7 +28,9 @@ public class CargoTrain extends Train {
     }
 
     public boolean hasSpaceFree(Passenger p) {
+        // is there enough space for passengers?
         boolean b = this.getNumPassengers() < this.getMaxPassengers();
+        // there must also be enough space for the cargo.
         return this.maxCargoWeight - this.getTotalCargo() > p.getCargo().getWeight()
                 && b;
     }
@@ -42,12 +44,12 @@ public class CargoTrain extends Train {
             this.forward = !this.forward;
         }
     }
-
+    /* find next cargo station:
+     * return true if ahead
+     * return false if behind
+    */
     public boolean findNextCargoStation() {
-        /* find next cargo station:
-            return true if ahead
-            return false if behind
-         */
+
         try {
             return this.trainLine.checkCargoStationsAhead(this.station, this.forward);
         } catch(Exception e) {
@@ -57,9 +59,11 @@ public class CargoTrain extends Train {
     }
 
     @Override
-    public void seekTrack() {
-        // edge case
+    public boolean seekTrack() {
+        // edge case, if there is only 1 cargo station, the train cant go anywhere...
         if(this.trainLine.getNumCargoStations() > 1)
-            super.seekTrack();
+            return super.seekTrack();
+        else
+            return false;
     }
 }

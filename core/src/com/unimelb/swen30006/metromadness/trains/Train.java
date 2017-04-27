@@ -94,34 +94,38 @@ public abstract class Train {
 			if(hasChanged){
 				logger.info(this.name+ " is travelling from the depot: "+this.station.getName()+" Station...");
 			}
-			
+
+			// depart depot
 			this.departDepot();
 			break;
 		case IN_STATION:
-			this.waitAtStation(delta);
-			if(hasChanged){
-				logger.info(this.name+" is in "+this.station.getName()+" Station.");
-			}
+
+			// wait for passengers, or skip station if cargo train
+			this.waitAtStation(delta, hasChanged);
+
 			break;
 		case READY_DEPART:
 			if(hasChanged){
 				logger.info(this.name+ " is ready to depart for "+this.station.getName()+" Station!");
 			}
-			
+
+			// leave station
 			this.departStation();
 			break;
 		case ON_ROUTE:
 			if(hasChanged){
 				logger.info(this.name+ " enroute to "+this.station.getName()+" Station!");
 			}
-			
+
+			// checkout if we have reached the new station
 			this.checkArrival(delta);
 			break;
 		case WAITING_ENTRY:
 			if(hasChanged){
 				logger.info(this.name+ " is awaiting entry "+this.station.getName()+" Station..!");
 			}
-			
+
+			// attempt to enter the station
 			this.enterStation();
 			break;
 		}
@@ -140,12 +144,20 @@ public abstract class Train {
 		}
 	}
 
-	private void waitAtStation(float delta) {
+	private void waitAtStation(float delta, boolean hasChanged) {
+		// check if our train should stop at this station
 		if(!station.shouldStop(this)) {
-			this.seekTrack();
-			this.departStation();
+			// find next track and skip the station
+			if(this.seekTrack())
+				this.departStation();
 			return;
 		}
+
+		// train should stop!
+		if(hasChanged){
+			logger.info(this.name+" is in "+this.station.getName()+" Station.");
+		}
+
 		// When in station we want to disembark passengers
 		// and wait 10 seconds for incoming passengers
 		if(!this.disembarked){
@@ -162,10 +174,13 @@ public abstract class Train {
 		}
 	}
 
-	public void seekTrack() {
+	public boolean seekTrack() {
+		// check our direction boolean
 	    this.checkDirection();
+	    // find the next track, and we're ready to go
         this.track = this.trainLine.nextTrack(this.station, this.forward);
         this.state = State.READY_DEPART;
+        return true;
 	}
 
 	private void departStation() {

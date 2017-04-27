@@ -26,6 +26,7 @@ public class CargoStation extends ActiveStation {
 
     @Override
     protected PassengerGenerator createPassengerGenerator(float maxPax) {
+        // generate passengers WITH CARGO
         return new PassengerGenerator(this, this.getLines(), maxPax, true);
     }
 }

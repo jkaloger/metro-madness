@@ -3,6 +3,7 @@ package com.unimelb.swen30006.metromadness.passengers;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.unimelb.swen30006.metromadness.stations.CargoStation;
 import com.unimelb.swen30006.metromadness.stations.Station;
 import com.unimelb.swen30006.metromadness.tracks.Line;
 
@@ -23,6 +24,7 @@ public class PassengerGenerator {
 	// The max volume
 	public float maxVolume;
 
+	// are we on a cargo station?
 	private boolean generateCargo;
 	
 	public PassengerGenerator(Station s, ArrayList<Line> lines, float max, boolean generateCargo){
@@ -57,7 +59,8 @@ public class PassengerGenerator {
 		// Find the station
 		int index = 0;
 
-		/* picks random station, but we need it to pick a cargo station if have cargo */
+		/* picks random station, but we need it to pick a cargo station if have cargo
+		 * the spec is UNCLEAR as to whether we need to fix this */
 		if (forward){
 			index = random.nextInt(l.getNumStations()-1-current_station) + current_station + 1;
 		} else {
